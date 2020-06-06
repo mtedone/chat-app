@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js -e js,html,css",
+    "dev-debug": "env-cmd -f ./config/dev.env nodemon --inspect src/index.js -e js,html,css",
     "test": "jest --watch --runInBand"
   },
   "repository": {

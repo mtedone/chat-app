@@ -34,7 +34,7 @@ test('Should add a user', () => {
     const addedUser = addUser(userTwo);    
     
     expect(addedUser).not.toBeNull();
-    expect(addedUser.id).toEqual(userTwo.id);
+    expect(addedUser.user.id).toEqual(userTwo.id);
 });
 
 test('Should return an existing user', () => {

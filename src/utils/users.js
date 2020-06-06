@@ -29,7 +29,7 @@ const addUser = ({ id, username, room }) => {
     // Store user
     const user = { id, username, room};
     users.push(user);
-    return user;
+    return {user};
 };
 
 const removeUser = (user) => {
@@ -56,8 +56,7 @@ const getUser = (id) => {
 
 const getUsersInRoom = (room) => {    
     room = room.trim().toLowerCase();
-    usersInRoom = users.filter( (user) => user.room === room);
-    return usersInRoom;
+    return users.filter( (user) => user.room === room);    
 }
 
 module.exports = { addUser, 
