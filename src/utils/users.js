@@ -29,7 +29,7 @@ const addUser = ({ id, username, room }) => {
     // Store user
     const user = { id, username, room};
     users.push(user);
-    return { user }
+    return user;
 };
 
 const removeUser = (username) => {
@@ -39,4 +39,12 @@ const removeUser = (username) => {
     }
 };
 
-module.exports = { addUser, removeUser };
+const clearUsers = () => {
+    users.splice(0, users.length);
+};
+
+const getUsers = () => {
+    return users;
+}
+
+module.exports = { addUser, removeUser, clearUsers, getUsers };
