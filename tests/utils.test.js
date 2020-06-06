@@ -53,3 +53,8 @@ test('Should return users in a room', () => {
     expect(users).not.toBeNull();
     expect(users.length).toBe(1);
 });
+
+test('Should return an empty array for non existing room', () => {
+    const users = getUsersInRoom('NonExisting');
+    expect(users.length).toBe(0);
+});
