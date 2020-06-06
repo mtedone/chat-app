@@ -11,12 +11,16 @@ const port = process.env.PORT;
 
 
 io.on('connection', (socket) => {
-    
-    // Sends only to the connected client
-    socket.emit('message', generateMessage('Welcome')); 
 
-    // Sends to all clients except the one making the connection
-    socket.broadcast.emit('message', generateMessage('A new user has joined'));
+    socket.on('join', ( { username, room }) => {
+        socket.join(room);
+
+        // Sends only to the connected client
+        socket.emit('message', generateMessage('Welcome')); 
+
+        // Sends to all clients except the one making the connection
+        socket.broadcast.to(room).emit('message', generateMessage(`${username} has joined!`));
+    });
     
     socket.on('sendMessage', (message, callback) => {
         const filter = new Filter();
@@ -36,7 +40,9 @@ io.on('connection', (socket) => {
     // We can use io.emit as the client has disconnected
     socket.on('disconnect', () => {
         io.emit('message', generateMessage('User X has left'));
-    })
+    });
+
+    
 });
 
 
