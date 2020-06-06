@@ -2,6 +2,7 @@ const http = require('http');
 const socketio = require('socket.io');
 const Filter = require('bad-words');
 const app = require('./app');
+const { generateMessage } = require('./utils/messages');
 
 const server = http.createServer(app);
 const io = socketio(server);
@@ -12,10 +13,10 @@ const port = process.env.PORT;
 io.on('connection', (socket) => {
     
     // Sends only to the connected client
-    socket.emit('message', 'Welcome!'); 
+    socket.emit('message', generateMessage('Welcome')); 
 
     // Sends to all clients except the one making the connection
-    socket.broadcast.emit('message', 'A new user has joined');
+    socket.broadcast.emit('message', generateMessage('A new user has joined'));
     
     socket.on('sendMessage', (message, callback) => {
         const filter = new Filter();
@@ -23,7 +24,7 @@ io.on('connection', (socket) => {
             return callback('Profanity is not allowed');
         }
         // Sends to everyone
-        io.emit('message', message);
+        io.emit('message', generateMessage(message));
         callback();
     });
 
@@ -34,7 +35,7 @@ io.on('connection', (socket) => {
 
     // We can use io.emit as the client has disconnected
     socket.on('disconnect', () => {
-        io.emit('message', 'User X has left');
+        io.emit('message', generateMessage('User X has left'));
     })
 });
 
