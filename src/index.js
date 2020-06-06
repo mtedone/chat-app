@@ -23,9 +23,7 @@ io.on('connection', (socket) => {
         if (error) {
             return callback(error);
         }
-        console.log(user);
         
-
         socket.join(user.room);
 
         // Sends only to the connected client
@@ -54,7 +52,7 @@ io.on('connection', (socket) => {
 
     // We can use io.emit as the client has disconnected
     socket.on('disconnect', () => {
-        const user = removeUser(socket.id);
+        const user = removeUser(socket.id);        
         if (user) {
             io.to(user.room).emit('message', generateMessage(`${user.username} has left`));
         }        

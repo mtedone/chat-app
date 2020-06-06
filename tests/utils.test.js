@@ -24,7 +24,7 @@ beforeEach( () => {
     expect(addedUserTwo).not.toBeNull();
 });
 
-test('Should return the removed user', () => {    
+test('Should removed a user', () => {    
     const removedUser = removeUser(user.id);
     expect(removedUser).not.toBeNull();
 });
