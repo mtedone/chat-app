@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "../task-manager"
+        },
+        {
+            "path": "../../../tmp/node-course/web-server"
+        }
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "chat-app"
+    }
+}
