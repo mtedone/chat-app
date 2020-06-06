@@ -7,19 +7,27 @@ const io = socketio(server);
 
 const port = process.env.PORT;
 
-// The chat payload
-let count = 0;
 
 io.on('connection', (socket) => {
-    console.log('New Websocket connection');    
-    socket.emit('countUpdated', count);
+    
+    // Sends only to the connected client
+    socket.emit('message', 'Welcome!'); 
 
-    socket.on('updatedIncrement', () => {
-        count += 1;        
-        // Emits to all socket connections as opposed to socket.emit
-        io.emit('countUpdated', count); 
+    // Sends to all clients except the one making the connection
+    socket.broadcast.emit('message', 'A new user has joined');
+
+    // Sends to everyone
+    socket.on('sendMessage', (message) => {
+        io.emit('message', message);
     });
+
+    // We can use io.emit as the client has disconnected
+    socket.on('disconnect', () => {
+        io.emit('message', 'User X has left');
+    })
 });
+
+
 
 
 
